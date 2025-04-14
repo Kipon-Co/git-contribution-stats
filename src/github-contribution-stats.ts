@@ -23,10 +23,11 @@ export interface RepoContribution {
 }
 
 export interface InstallationStats {
-    id: number
+    instalation_id: number
     account: string
     account_type: string
     period_days: number
+    user_id: number
     user_stats: UserStat[]
 }
 
@@ -239,7 +240,7 @@ async function processBranchCommits(octokit: any, owner_login: string, repo_name
             processed_commits.add(commit.oid)
 
             const author_login = commit.author.user?.login || commit.author.name || commit.author.email || "Unknown"
-            const user_id = commit.author.user?.id || commit.author.user?.databaseId || null
+            const user_id = commit.author.user?.databaseId || null
 
             if (!user_stats[author_login]) {
                 user_stats[author_login] = {
@@ -466,8 +467,9 @@ async function fetchPRsWithPagination(octokit: any, repo: any, cutoff_date: Date
 
 function formatInstallationStats(installation: any, days_to_look_back: number, user_stats: any) {
     const installation_stats: InstallationStats = {
-        id: installation.id,
+        instalation_id: installation.id,
         account: installation.account.login,
+        user_id: installation.account.id,
         account_type: installation.account.type,
         period_days: days_to_look_back,
         user_stats: []
