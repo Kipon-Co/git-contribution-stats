@@ -1,0 +1,42 @@
+{
+    "name": "github-contribution-stats",
+    "version": "1.0.0",
+    "description": "Library to generate GitHub contribution reports for GitHub App installations",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "build": "tsc",
+        "prepublishOnly": "npm run build",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "github",
+        "git stats",
+        "activity",
+        "report",
+        "statistics",
+        "contribution",
+        "github-app"
+    ],
+    "author": "Kipon-Co",
+    "license": "MIT",
+    "dependencies": {
+        "dotenv": "^16.5.0",
+        "octokit": "^3.1.0"
+    },
+    "devDependencies": {
+        "@types/node": "^20.4.5",
+        "typescript": "^5.2.2"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Kipon-Co/git-contribution-stats.git"
+    },
+    "bugs": {
+        "url": "https://github.com/Kipon-Co/git-contribution-stats/issues"
+    },
+    "homepage": "https://github.com/Kipon-Co/git-contribution-stats#readme"
+}
