@@ -25,7 +25,7 @@ export interface RepoContribution {
 }
 
 export interface InstallationStats {
-    instalation_id: number
+    installation_id: number
     account: string
     account_type: string
     period_days: number
@@ -460,7 +460,7 @@ async function fetchPRsWithPagination(octokit: any, repo: any, cutoff_date: Date
 
 function formatInstallationStats(installation: any, days_to_look_back: number, user_stats: any) {
     const installation_stats: InstallationStats = {
-        instalation_id: installation.id,
+        installation_id: installation.id,
         account: installation.account.login,
         user_id: installation.account.id,
         account_type: installation.account.type,

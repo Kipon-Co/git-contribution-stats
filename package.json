@@ -1,6 +1,6 @@
 {
     "name": "git-contribution-stats",
-    "version": "1.0.2",
+    "version": "1.0.4",
     "description": "Library to generate GitHub contribution reports for GitHub App installations",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
