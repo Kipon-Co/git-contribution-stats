@@ -25,10 +25,12 @@
     "license": "MIT",
     "dependencies": {
         "dotenv": "^16.5.0",
-        "octokit": "^3.1.0"
+        "octokit": "^3.1.0",
+        "signale": "^1.4.0"
     },
     "devDependencies": {
         "@types/node": "^20.4.5",
+        "@types/signale": "^1.4.7",
         "typescript": "^5.2.2"
     },
     "repository": {
