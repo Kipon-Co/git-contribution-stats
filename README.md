@@ -11,7 +11,7 @@ npm install git-contribution-stats
 ## Usage
 
 ```typescript
-import { generateGitHubReport } from 'github-contribution-stats'
+import { generateGitHubReport } from 'git-contribution-stats'
 
 // Generate a report
 const report = await generateGitHubReport({
