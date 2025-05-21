@@ -17,11 +17,18 @@ export interface UserStat {
     repo_contributions: RepoContribution[]
 }
 
+export interface CommitInfo {
+    id: string
+    message: string
+    date: string
+}
+
 export interface RepoContribution {
     repo_name: string
     commits: number
     prs_opened: number
     prs_closed: number
+    commit_details: CommitInfo[]
 }
 
 export interface InstallationStats {
@@ -236,6 +243,8 @@ async function processBranchCommits(octokit: any, owner_login: string, repo_name
               history(since: $since, first: 100) {
                 nodes {
                   oid
+                  message
+                  committedDate
                   author {
                     user {
                       login
@@ -245,7 +254,6 @@ async function processBranchCommits(octokit: any, owner_login: string, repo_name
                     name
                     email
                   }
-                  committedDate
                 }
               }
             }
@@ -277,6 +285,7 @@ async function processBranchCommits(octokit: any, owner_login: string, repo_name
                     user_id: user_id,
                     commits_by_repo: {},
                     pull_requests_by_repo: {},
+                    commit_details_by_repo: {},
                     total_commits: 0,
                     total_prs_opened: 0,
                     total_prs_closed: 0
@@ -287,10 +296,17 @@ async function processBranchCommits(octokit: any, owner_login: string, repo_name
 
             if (!user_stats[author_login].commits_by_repo[repo_name]) {
                 user_stats[author_login].commits_by_repo[repo_name] = 0
+                user_stats[author_login].commit_details_by_repo[repo_name] = []
             }
 
             user_stats[author_login].commits_by_repo[repo_name]++
             user_stats[author_login].total_commits++
+            
+            user_stats[author_login].commit_details_by_repo[repo_name].push({
+                id: commit.oid,
+                message: commit.message,
+                date: commit.committedDate
+            })
         }
     }
 }
@@ -353,6 +369,7 @@ async function processPullRequest(pr: any, repo_name: string, cutoff_date: Date,
             user_id: user_id,
             commits_by_repo: {},
             pull_requests_by_repo: {},
+            commit_details_by_repo: {},
             total_commits: 0,
             total_prs_opened: 0,
             total_prs_closed: 0
@@ -488,7 +505,8 @@ function formatInstallationStats(installation: any, days_to_look_back: number, u
                 repo_name: repo_name,
                 commits: (stats as any).commits_by_repo[repo_name] || 0,
                 prs_opened: ((stats as any).pull_requests_by_repo[repo_name] && (stats as any).pull_requests_by_repo[repo_name].opened) || 0,
-                prs_closed: ((stats as any).pull_requests_by_repo[repo_name] && (stats as any).pull_requests_by_repo[repo_name].closed) || 0
+                prs_closed: ((stats as any).pull_requests_by_repo[repo_name] && (stats as any).pull_requests_by_repo[repo_name].closed) || 0,
+                commit_details: (stats as any).commit_details_by_repo[repo_name] || []
             }
 
             user_stat.repo_contributions.push(repo_stat)
