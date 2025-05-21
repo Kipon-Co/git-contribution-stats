@@ -56,6 +56,22 @@ The report includes:
     - repo1: 8 commits, 1 PRs opened, 1 PRs closed
 ```
 
+
+### Running Locally
+
+run on terminal:
+
+```npx ts-node src/run.ts````
+
+.env: 
+
+```
+GITHUB_APP_ID=
+GITHUB_PRIVATE_KEY_PATH=
+````
+
 ## License
 
 MIT
+
+
